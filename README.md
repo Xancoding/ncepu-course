@@ -1,5 +1,5 @@
 ## 前言
-受到[上海交通大学课程分享](https://github.com/kxxwz/SJTU-Courses)和[浙江大学课程攻略共享计划](https://github.com/QSCTech/zju-icicles)的启发，我决定建立一个这样的平台供大家自由地分享和使用课程资料。
+受到[上海交通大学课程分享](https://github.com/kxxwz/SJTU-Courses)、[浙江大学课程攻略共享计划](https://github.com/QSCTech/zju-icicles)和[华北电力大学计算机系课程攻略](https://github.com/IammyselfYBX/NCEPU_CS_course)的启发，我决定建立一个这样的平台供大家自由地分享和使用课程资料。
 
 ## 许可
 由贡献者编写部分的许可如下：
