@@ -1,0 +1,20 @@
+; 实现依次用内存 0:0~0:15 单元中的内容改写程序中的数据
+ASSUME CS:CODESG
+CODESG SEGMENT
+    DW 0123H,0456H,0789H,0ABCH,0DEFH,0FEDH,0CBAH,0987H
+START:
+    MOV AX,0
+    MOV DS,AX
+    
+    MOV BX,0
+    MOV CX,8
+S:
+    MOV AX,[BX]  
+    MOV CS:[BX],AX    
+    ADD BX,2
+    LOOP S
+    
+    MOV AX,4C00H
+    INT 21H
+CODESG ENDS
+END START

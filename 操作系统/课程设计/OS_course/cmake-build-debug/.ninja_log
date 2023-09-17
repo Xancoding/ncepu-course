@@ -1,0 +1,8 @@
+# ninja log v5
+7	68	7089436076196335	CMakeFiles/OS_course.dir/main.cpp.obj	278f7654ad3ed010
+5	444	7089436570966153	build.ninja	2db7558a9db37207
+2	1374	7089436089266268	CMakeFiles/OS_course.dir/process.cpp.obj	d7fe95ddf9914708
+1375	1513	7089436090631841	OS_course.exe	3c03200015b9a16c
+7	56	7089436710617677	CMakeFiles/OS_course.dir/main.cpp.obj	4cab5400f1c7afa6
+3	690	7089436716949214	CMakeFiles/OS_course.dir/process.cpp.obj	8ca770f077f07816
+691	779	7089436717826417	OS_course.exe	af314fe333b72513

@@ -1,0 +1,1040 @@
+SAU通用计算机博弈对战平台通信协议说明与引擎编写规范
+==============================================================================
+
+
+一、进程间通信技术
+    SAU通用计算机博弈对战平台与控制台类型博弈软件之间，依靠匿名管道技术与标准输入输出重定向技术来实现进程间通信，有效地对控制台类型博弈软件实现了技术屏蔽。控制台类型博弈程序只需要调用标准输入函数就可以接收到平台发送的命令，也只需要调用标准输出函数就可以向平台发送信息。
+
+
+二、平台与博弈软件间通信协议
+
+    1、数据格式规定：博弈平台与博弈软件间通信的数据以字符串的形式进行传递，有效信息是 “command word+[' '+parameters]+'\n'”格式的命令串，即以命令字开头换行符结尾中间填充可选参数。对于平台，博弈软件发送的无效信息将被自动过滤。
+
+    2、数据长度规定：博弈平台与博弈引擎间通信的一条命令串长度不超过256字节（包括字符串结束符'\0'）。
+
+    3、棋盘坐标规定：二维棋盘分为横轴和纵轴两个维度，以左上角为坐标原点。因为棋盘范围不限定于0~9，为了压缩命令串的长度，以大写字母代替数字，故坐标从大写字母 'A'开始，按字母序进行标定。
+    4、平台-引擎通信协议定义有："name?","name","new","move","accept","refuse","take","taked","end","quit","error"十一个命令字。其中"name?","new","move","accept","refuse","take","taked","end","quit","error"为平台向引擎传递命令；"name","move"为引擎向平台传递命令字。在后面对命令串进行完整定义的描述中，以"["和"]"括起的参数为可选参数。
+
+    5、平台向引擎发送命令串定义
+
+        1)"name?" 命令
+            功能：
+                询问引擎名称
+            完整格式：
+                "name?+'\n'"
+            参数：
+                无
+            说明：
+                "name?" 命令为无参命令，只能由平台向引擎发送。
+
+        2)"new" 命令
+            功能：
+                创建对弈
+            完整格式：
+                "new+' '+side+'\n'"
+            参数：
+                side：用于指明引擎的执棋颜色，其值为black或white。
+            说明：
+                "new" 命令用于通知引擎创建新棋局。若side值为black，则引擎先手行棋，应向平台发送"move"命令。若side值为white，则引擎后手行棋，应等待引擎发送行棋通知，即"move"命令。
+
+        3)"move" 命令
+            功能：
+                行棋通知
+            完整格式：
+                "move+[' '+position list]+'\n'"
+            参数：
+                position list：坐标列表。
+            说明：
+                "move" 命令用于通知引擎开始行棋，其参数为上一手棋的着法。坐标列表内坐标按字符位数进行区分，两个坐标之间不加空格符，两个字符构成一个坐标，第一字符表示横轴坐标，第二字符表示纵轴坐标。如幻影围棋类的非完备信息博弈，不可获知对方的行棋着法，则该命令不带参数。添子类棋种坐标列表内坐标数量等同于落子数量，每一个坐标表示一处棋子落点。走子类棋种坐标列表内坐标数量为行棋步数加一，其中第一坐标为棋子的起始坐标，最后坐标为棋子落点坐标，其余坐标为棋子的滞留坐标。如亚马逊棋需要设置障碍，则在坐标列表中添加一个障碍坐标。
+
+        4)"accept" 命令
+            功能：
+                着法接受通知
+            完整格式：
+                "accept+'\n'"
+            参数：
+                无
+            说明：
+                用于幻影围棋中，确认平台接受引擎提交的着法。
+            
+        5)"refuse" 命令
+            功能：
+                着法拒绝通知
+            完整格式：
+                "refuse+'\n'"
+            参数：
+                无
+            说明：
+                用于幻影围棋中，确认平台拒绝引擎提交的着法。
+            
+        6)"take" 命令
+            功能：
+                提子通知
+            完整格式：
+                "take+' '+num+' '+position list+'\n'"
+            参数：
+                num：坐标列表内坐标数量。
+                position list：坐标列表。
+            说明：
+                “take” 命令用于通知引擎进行提子。该命令用于幻影围棋类引擎不可推知何处棋子如何被移出棋盘的非完备信息博弈，其它类型博弈的提子或吃子操作皆可通过对“move” 命令的处理得出。
+
+        7)"taked" 命令
+            功能：
+                被提子通知
+            完整格式：
+                "taked+' '+num+' '+position list+'\n'"
+            参数：
+                num：坐标列表内坐标数量。
+                position list：坐标列表。
+            说明：
+                参考"take"命令。
+            
+        8)"end" 命令
+            功能：
+                通知对弈结束
+            完整格式：
+                “end+[' '+win]+'\n'”
+            参数：
+                win：获胜方，值为black或white。
+            说明：
+                “win” 命令参数可由可无，若含参数，则参数用以指定获胜方。
+
+        9)"quit"命令
+            功能：
+                通知退出程序
+            完整格式：
+                “end+'\n'”
+            参数：
+                无
+            说明：
+                无
+
+        10)"error" 命令
+            功能：
+                通知着法错误
+            完整格式：
+                “error+'\n'”
+            参数：
+                无
+            说明：
+                “error” 命令为无参命令，只能由平台向引擎发送。
+
+    6、引擎向平台发送命令串定义
+
+        1)“name” 命令
+            功能：
+                应答引擎名称
+            完整格式：
+                “name+' '+engine name+'\n'”
+            参数：
+                engine name：引擎名称。
+            说明：
+                “name” 命令用于应答平台发出的 “name?” 命令。
+
+        2)“move” 命令
+            功能：
+                应答行棋着法
+            完整格式：
+                “move+' '+position list+'\n'”
+            参数：
+                position list：着法列表。
+            说明：
+                “move” 命令用于应答平台发出的 “move” 命令和 “new black” 命令，position list参数规则参考平台向引擎发送的 “move” 命令说明。
+
+    7、补充说明
+
+        在对弈进行过程中，平台只接受引擎发送的“move”命令，除非用户手动触发对博弈程序的特殊操作（如悔棋等）转换到对特殊命令的接收。
+
+
+三、引擎编写规范
+
+    平台加载博弈软件后会向博弈软件发送"name?"命令询问引擎名，此时博弈软件比喻要发送"name"命令予以回应，否则平台认为博弈软件没有做好开始工作的准备。
+
+    当对弈开始时，平台会向博弈软件发送"new"命令给引擎分配执棋颜色，同时通知引擎对弈开始，并宣布先手方（black方）开始行棋。
+
+    对弈进行的过程中，平台向博弈软件发送"move"命令通知引擎开始行棋，并告知引擎对手的着法（幻影围棋除外）。
+    
+    当对弈结束后，平台向博弈软件发送"end"命令通知对弈过程终止。
+
+    当卸载博弈软件时，平台向博弈软件发送"quit"命令。
+
+    由于windows平台的制约，博弈软件在接收平台命令后需要调用"fflush(stdin);"刷新输入缓存区。博弈软件在向平台发送数据后需要调用"fflush(stdout);"刷新输出缓存区。
+    在幻影围棋中，"taked"命令后必紧跟着一条"move"命令，因此在处理"taked"命令时不能刷新输入缓冲区。
+
+    博弈引擎编码示例：
+
+1、六子棋引擎通信示例框架：
+--------------------------------------------------------------
+#define BLACK 0
+#define WHITE 1
+#define EMPTY 2
+
+typedef struct _Point{ //点结构
+	int x,y;
+}Point;
+
+typedef struct _Step{ //步结构
+	Point first,second;
+	int value;
+}Step;
+
+int Board[19][19];//棋盘结构
+
+int connect6(int argc, char *argv[])
+{
+	Step step;//临时步结构
+	char message[256];//通信消息缓冲
+    int computerSide;//己方执棋颜色
+    int start=0;//对局开始标记
+
+	//此处放置初始化代码
+    //...
+    
+    //程序主循环
+	while (1)
+	{
+		fflush(stdout);
+        
+        //获取平台消息
+		scanf("%s", message);
+        
+        //分析命令
+		if(strcmp(message,"move")==0)//行棋
+		{
+			scanf("%s", message);//获取对手行棋着法
+            fflush(stdin);
+            
+			step.first.x=message[0]-'A';
+			step.first.y=message[1]-'A';
+			step.second.x=message[2]-'A';
+			step.second.y=message[3]-'A';
+            
+            //处理对手行棋
+            Board[step.first.x][step.first.y]=computerSide^1;
+            Board[step.second.x][step.second.y]=computerSide^1;
+            //...
+            
+			//生成着法，并保存在step结构中
+            //...
+            
+            //处理己方行棋
+            Board[step.first.x][step.first.y]=computerSide;
+            Board[step.second.x][step.second.y]=computerSide;
+            //...
+            
+            //输出着法
+			printf("move %c%c%c%c\n",step.first.x+'A',step.first.y+'A',step.second.x+'A',step.second.y+'A');
+		}
+		else if(strcmp(message,"new")==0)//建立新棋局
+		{
+            int i,j;
+            
+			scanf("%s",message);//获取己方执棋颜色
+            fflush(stdin);
+            
+			if(strcmp(message,"black")==0)//执黑
+				computerSide=BLACK;
+			else//执白
+				computerSide=WHITE;
+            
+            //初始化棋局
+            for(i=0;i<19;++i)
+                for(j=0;j<19;++j)
+                    Board[i][j]=EMPTY;
+            //...
+            
+            start=1;
+            
+            if(computerSide==BLACK)
+            {
+                //生成第一手着法，并保存在step结构中
+                //...
+                
+                //处理己方行棋
+                Board[step.first.x][step.first.y]=computerSide;
+                //...
+                
+                //输出着法
+                printf("move %c%c@@\n",step.first.x+'A',step.first.y+'A');
+            }
+		}
+        else if (strcmp(message, "error") == 0)//着法错误
+        {
+            fflush(stdin);
+            
+            //...
+        }
+		else if (strcmp(message, "name?") == 0)//询问引擎名
+		{
+            fflush(stdin);
+            
+            //输出引擎名
+			printf("name xxxx\n");
+		}
+		else if (strcmp(message, "end") == 0)//对局结束
+		{
+            fflush(stdin);
+            
+			start = 0;
+            //...
+		}
+		else if (strcmp(message, "quit") == 0)//退出引擎
+		{
+            fflush(stdin);
+            
+            //...
+			printf("Quit!\n");
+			break;
+		}
+	}
+	return 0;
+}
+
+
+2、幻影围棋引擎通信示例框架：
+----------------------------------------------------------------
+#define BLACK 0
+#define WHITE 1
+#define EMPTY 2
+
+typedef struct _Point{ //点结构
+	int x,y;
+}Point;
+
+typedef struct _Step{ //步结构
+	Point point;
+	int value;
+}Step;
+
+int Board[10][10];//棋盘结构
+
+int PhantomGo()
+{
+	Step step;//临时步结构
+	char message[256];//通信消息缓冲
+    int computerSide;//己方执棋颜色
+    int start=0;//对局开始标记
+
+	//此处放置初始化代码
+    //...
+    
+    //程序主循环
+	while(1)
+	{
+		fflush(stdout);
+        
+		//获取平台消息
+		scanf("%s", message);
+        
+        //分析命令
+		if (strcmp(message, "accept") == 0)                     //己方提交着法被接受
+		{
+			fflush(stdin);
+            
+			//处理己方行棋
+            Board[step.point.x][step.point.y]=computerSide;
+            //...
+		}
+		else if (strcmp(message, "refuse") == 0)                //己方提交着法被拒绝
+		{
+			fflush(stdin);
+                
+			//生成着法，并保存在step结构中
+            //...
+
+            //检查着法
+            if (...)//输出着法
+                printf("move %c%c\n",step.point.x+'A',step.point.y+'A');   
+            else//或Pass
+				printf("move pass\n");
+		}
+		else if (strcmp(message, "move") == 0)
+		{
+			scanf("%s", message);
+			if (strcmp(message, "go") == 0)
+			{
+				fflush(stdin);
+                
+go:				//生成着法，并保存在step结构中
+                //...
+                
+                //检查着法
+                if (...)//输出着法
+                    printf("move %c%c\n",step.point.x+'A',step.point.y+'A');   
+				else//或Pass
+					printf("move pass\n");
+			}
+			else if (strcmp(message, "pass") == 0)//对方pass
+			{
+				fflush(stdin);
+                
+				//...
+				goto go;
+			}
+		}
+		else if (strcmp(message, "take") == 0)//己方提子
+		{
+			int num;
+            
+            fflush(stdin);
+            
+			scanf("%d", &num);//读取提子数目
+			scanf("%s", message);//读取提子列表
+            
+			for (int k = 0; k < num; k++)
+			{
+				x = message[2 * k] - 'A';
+				y = message[2 * k + 1] - 'A';
+				Board[x][y] = EMPTY;
+                //...
+			}
+            //...
+		}
+		else if (strcmp(message, "taked") == 0)//对方提子
+		{
+            int num;
+            
+			scanf("%d", &num);//读取提子数目
+			scanf("%s", message);//读取提子列表
+            
+			for (int k = 0; k < num; k++)
+			{
+				x = message[2 * k] - 'A';
+				y = message[2 * k + 1] - 'A';
+				Board[x][y] = EMPTY;
+                //...
+			}
+            //...
+		}
+		else if (strcmp(message,"new") == 0)//新建棋局
+		{
+            int i,j;
+            
+			scanf("%s",message);//获取己方执棋颜色
+            fflush(stdin);
+            
+			if(strcmp(message,"black")==0)//执黑
+				computerSide=BLACK;
+			else//执白
+				computerSide=WHITE;
+            
+            //初始化棋局
+            for(i=0;i<10;++i)
+                for(j=0;j<10;++j)
+                    Board[i][j]=EMPTY;
+            //...
+            
+            start=1;
+            
+            if(computerSide==BLACK)
+            {
+                //生成第一手着法，并保存在step结构中
+                //...
+                
+                //处理己方行棋
+                Board[step.point.x][step.point.y]=computerSide;
+                //...
+                
+                //输出着法
+                printf("move %c%c\n",step.point.x+'A',step.point.y+'A');
+            }
+		}
+        else if (strcmp(message, "error") == 0)//着法超出棋盘范围
+        {
+            fflush(stdin);
+            
+            //...
+        }
+		else if (strcmp(message, "name?") == 0)//询问引擎名
+		{
+            fflush(stdin);
+            
+            //输出引擎名
+			printf("name xxxx\n");
+		}
+		else if (strcmp(message, "end") == 0)//对局结束
+		{
+            fflush(stdin);
+            
+			start = 0;
+            //...
+		}
+		else if (strcmp(message, "quit") == 0)//退出引擎
+		{
+            fflush(stdin);
+            
+            //...
+			printf("Quit!\n");
+			break;
+		}
+	}
+	return 0;
+}
+
+
+3、苏拉卡尔塔棋引擎通信示例框架：
+----------------------------------------------------------------
+#define BLACK 0
+#define WHITE 1
+#define EMPTY 2
+
+typedef struct _Point{ //点结构
+	int x,y;
+}Point;
+
+typedef struct _Step{ //步结构
+	Point start,end;
+	int value;
+}Step;
+
+int Board[6][6];//棋盘结构
+
+int SuLa()
+{
+	Step step;//临时步结构
+	char message[256];//通信消息缓冲
+    int computerSide;//己方执棋颜色
+    int start=0;//对局开始标记
+
+	//此处放置初始化代码
+    //...
+    
+    //程序主循环
+	while (1)
+	{
+		fflush(stdout);
+
+		//获取平台消息
+		scanf("%s", message);
+        
+        //分析命令
+		if (strcmp(message,"move") == 0)//行棋
+		{
+		    scanf("%s", message);//获取对手行棋着法
+            fflush(stdin);
+            
+			step.start.x=message[0]-'A';
+			step.start.y=message[1]-'A';
+			step.end.x=message[2]-'A';
+			step.end.y=message[3]-'A';
+            
+            //处理对手行棋
+            Board[step.end.x][step.end.y]=Board[step.start.x][step.start.y];
+            Board[step.start.x][step.start.y]=EMPTY;
+            //...
+            
+			//生成着法，并保存在step结构中
+            //...
+            
+            //处理己方行棋
+            Board[step.end.x][step.end.y]=Board[step.start.x][step.start.y];
+            Board[step.start.x][step.start.y]=EMPTY;
+            //...
+            
+            //输出着法
+			printf("move %c%c%c%c\n",step.start.x+'A',step.start.y+'A',step.end.x+'A',step.end.y+'A');
+		}
+		else if(strcmp(message,"new")==0)//建立新棋局
+		{
+            int i,j;
+            
+			scanf("%s",message);//获取己方执棋颜色
+            fflush(stdin);
+            
+			if(strcmp(message,"black")==0)//执黑
+				computerSide=BLACK;
+			else//执白
+				computerSide=WHITE;
+            
+            //初始化棋局
+            for(i=0;i<2;++i)
+                for(j=0;j<6;++j)
+                    Board[i][j]=BLACK;
+            for(i=2;i<4;++i)
+                for(j=0;j<6;++j)
+                    Board[i][j]=EMPTY;
+            for(i=4;i<6;++i)
+                for(j=0;j<6;++j)
+                    Board[i][j]=WHITE;
+            //...
+            
+            start=1;
+            
+            if(computerSide==BLACK)
+            {
+                //生成第一手着法，并保存在step结构中
+                //...
+                
+                //处理己方行棋
+                Board[step.end.x][step.end.y]=Board[step.start.x][step.start.y];
+                Board[step.start.x][step.start.y]=EMPTY;
+                //...
+                
+                //输出着法
+                printf("move %c%c%c%c\n",step.start.x+'A',step.start.y+'A',step.end.x+'A',step.end.y+'A');
+            }
+		}
+        else if (strcmp(message, "error") == 0)//着法错误
+        {
+            fflush(stdin);
+            
+            //...
+        }
+		else if (strcmp(message, "name?") == 0)//询问引擎名
+		{
+            fflush(stdin);
+            
+            //输出引擎名
+			printf("name xxxx\n");
+		}
+		else if (strcmp(message, "end") == 0)//对局结束
+		{
+            fflush(stdin);
+            
+			start = 0;
+            //...
+		}
+		else if (strcmp(message, "quit") == 0)//退出引擎
+		{
+            fflush(stdin);
+            
+            //...
+			printf("Quit!\n");
+			break;
+		}
+	}
+	return 0;
+}
+
+
+4、点格棋引擎通信示例框架：
+--------------------------------------------------------------
+#define BLACK 0
+#define WHITE 1
+#define EMPTY 2
+
+typedef struct _Line{ //线结构
+	int k,i,j;
+}Line;
+
+typedef struct _Step{ //步结构
+	Line line;
+	int value;
+}Step;
+
+int Box[5][5];
+int Board[2][6][5];//棋盘线结构，2种方向，6条线，5段
+
+int DotAndBox(int argc, char *argv[])
+{
+	Step step;//临时步结构
+	char message[256];//通信消息缓冲
+    int computerSide;//己方执棋颜色
+    int start=0;//对局开始标记
+
+	//此处放置初始化代码
+    //...
+    
+    //程序主循环
+	while (1)
+	{
+		fflush(stdout);
+        
+        //获取平台消息
+		scanf("%s", message);
+        
+        //分析命令
+		if(strcmp(message,"move")==0)//行棋
+		{
+            int num;//线的数量
+            
+            scanf("%d", &num);
+			scanf("%s", message);//获取对手行棋着法
+            fflush(stdin);
+            
+			for(i = 0; i < num; ++i)
+            {
+                step.line.k = message[i*3] - 'A';
+                step.line.i = message[i*3 + 1] - 'A';
+                step.line.j = message[i*3 + 2] - 'A';
+                
+                //处理对手行棋
+                Board[step.line.k][step.line.i][step.line.j]=computerSide^1;
+                //...
+            }
+            //...
+            
+			//生成着法，并保存在线的数量在num中，保存线的坐标列表在message中
+            //...
+            
+            //处理己方行棋
+            //...
+            
+            //输出着法
+			printf("move %d %s\n",num, message);
+		}
+		else if(strcmp(message,"new")==0)//建立新棋局
+		{
+            int i,j;
+            
+			scanf("%s",message);//获取己方执棋颜色
+            fflush(stdin);
+            
+			if(strcmp(message,"black")==0)//执黑
+				computerSide=BLACK;
+			else//执白
+				computerSide=WHITE;
+            
+            //初始化棋局
+            for(k=0;k<2;++k)
+                for(i=0;i<6;++i)
+                    for(j=0;j<5;++j)
+                        Board[k][i][j]=EMPTY;
+            for(i=0;i<5;++i)
+                for(j=0;j<5;++j)
+                    Box[i][j]=EMPTY;
+            //...
+            
+            start=1;
+            
+            if(computerSide==BLACK)
+            {
+                //生成着法，并保存在线的数量在num中，保存线的坐标列表在message中
+                //...
+                
+                //处理己方行棋
+                //...
+                
+                //输出着法
+                printf("move %d %s\n",num, message);
+            }
+		}
+        else if (strcmp(message, "error") == 0)//着法错误
+        {
+            fflush(stdin);
+            
+            //...
+        }
+		else if (strcmp(message, "name?") == 0)//询问引擎名
+		{
+            fflush(stdin);
+            
+            //输出引擎名
+			printf("name xxxx\n");
+		}
+		else if (strcmp(message, "end") == 0)//对局结束
+		{
+            fflush(stdin);
+            
+			start = 0;
+            //...
+		}
+		else if (strcmp(message, "quit") == 0)//退出引擎
+		{
+            fflush(stdin);
+            
+            //...
+			printf("Quit!\n");
+			break;
+		}
+	}
+	return 0;
+}
+
+
+5、亚马逊棋引擎通信示例框架：
+--------------------------------------------------------------
+#define BLACK 0
+#define WHITE 1
+#define EMPTY 2
+#define BAR 3
+
+typedef struct _Point{ //点结构
+	int x,y;
+}Point;
+
+typedef struct _Step{ //步结构
+	Point start,end,bar;
+	int value;
+}Step;
+
+int Board[10][10];//棋盘结构
+
+int Amazon(int argc, char *argv[])
+{
+	Step step;//临时步结构
+	char message[256];//通信消息缓冲
+    int computerSide;//己方执棋颜色
+    int start=0;//对局开始标记
+
+	//此处放置初始化代码
+    //...
+    
+    //程序主循环
+	while (1)
+	{
+		fflush(stdout);
+        
+        //获取平台消息
+		scanf("%s", message);
+        
+        //分析命令
+		if(strcmp(message,"move")==0)//行棋
+		{
+			scanf("%s", message);//获取对手行棋着法
+            fflush(stdin);
+            
+			step.start.x=message[0]-'A';
+			step.start.y=message[1]-'A';
+			step.end.x=message[2]-'A';
+			step.end.y=message[3]-'A';
+            step.bar.x=message[4]-'A';
+            step.bar.y=message[5]-'A';
+            
+            //处理对手行棋
+            Board[step.start.x][step.start.y]=EMPTY;
+            Board[step.end.x][step.end.y]=computerSide^1;
+            Board[step.bar.x][step.bar.y]=BAR;
+            //...
+            
+			//生成着法，并保存在step结构中
+            //...
+            
+            //处理己方行棋
+            Board[step.start.x][step.start.y]=EMPTY;
+            Board[step.end.x][step.end.y]=computerSide;
+            Board[step.bar.x][step.bar.y]=BAR;
+            //...
+            
+            //输出着法
+			printf("move %c%c%c%c%c%c\n",step.start.x+'A',step.start.y+'A',step.end.x+'A',step.end.y+'A',step.bar.x+'A',step.bar.y+'A');
+		}
+		else if(strcmp(message,"new")==0)//建立新棋局
+		{
+            int i,j;
+            
+			scanf("%s",message);//获取己方执棋颜色
+            fflush(stdin);
+            
+			if(strcmp(message,"black")==0)//执黑
+				computerSide=BLACK;
+			else//执白
+				computerSide=WHITE;
+            
+            //初始化棋局
+            for(i=0;i<10;++i)
+                for(j=0;j<10;++j)
+                    Board[i][j]=EMPTY;
+            Board[0][3]=Board[3][0]=Board[6][0]=Board[9][3]=WHITE;
+            Board[0][6]=Board[3][9]=Board[6][9]=Board[9][6]=BLACK;
+            //...
+            
+            start=1;
+            
+            if(computerSide==BLACK)
+            {
+                //生成第一手着法，并保存在step结构中
+                //...
+                
+                //处理己方行棋
+                Board[step.start.x][step.start.y]=EMPTY;
+                Board[step.end.x][step.end.y]=computerSide;
+                Board[step.bar.x][step.bar.y]=BAR;
+                //...
+                
+                //输出着法
+                printf("move %c%c%c%c%c%c\n",step.start.x+'A',step.start.y+'A',step.end.x+'A',step.end.y+'A',step.bar.x+'A',step.bar.y+'A');
+            }
+		}
+        else if (strcmp(message, "error") == 0)//着法错误
+        {
+            fflush(stdin);
+            
+            //...
+        }
+		else if (strcmp(message, "name?") == 0)//询问引擎名
+		{
+            fflush(stdin);
+            
+            //输出引擎名
+			printf("name xxxx\n");
+		}
+		else if (strcmp(message, "end") == 0)//对局结束
+		{
+            fflush(stdin);
+            
+			start = 0;
+            //...
+		}
+		else if (strcmp(message, "quit") == 0)//退出引擎
+		{
+            fflush(stdin);
+            
+            //...
+			printf("Quit!\n");
+			break;
+		}
+	}
+	return 0;
+}
+
+
+6、不围棋引擎通信示例框架：
+--------------------------------------------------------------
+#define BLACK 0
+#define WHITE 1
+#define EMPTY 2
+
+typedef struct _Point{ //点结构
+	int x,y;
+}Point;
+
+typedef struct _Step{ //步结构
+	Point point;
+	int value;
+}Step;
+
+int Board[9][9];//棋盘结构
+
+int connect6(int argc, char *argv[])
+{
+	Step step;//临时步结构
+	char message[256];//通信消息缓冲
+    int computerSide;//己方执棋颜色
+    int start=0;//对局开始标记
+
+	//此处放置初始化代码
+    //...
+    
+    //程序主循环
+	while (1)
+	{
+		fflush(stdout);
+        
+        //获取平台消息
+		scanf("%s", message);
+        
+        //分析命令
+		if(strcmp(message,"move")==0)//行棋
+		{
+			scanf("%s", message);//获取对手行棋着法
+            fflush(stdin);
+            
+			step.point.x=message[0]-'A';
+			step.point.y=message[1]-'A';
+            
+            //处理对手行棋
+            Board[step.point.x][step.point.y]=computerSide^1;
+            //...
+            
+			//生成着法，并保存在step结构中
+            //...
+            
+            //处理己方行棋
+            Board[step.point.x][step.point.y]=computerSide;
+            //...
+            
+            //输出着法
+			printf("move %c%c\n",step.point.x+'A',step.point.y+'A');
+		}
+		else if(strcmp(message,"new")==0)//建立新棋局
+		{
+            int i,j;
+            
+			scanf("%s",message);//获取己方执棋颜色
+            fflush(stdin);
+            
+			if(strcmp(message,"black")==0)//执黑
+				computerSide=BLACK;
+			else//执白
+				computerSide=WHITE;
+            
+            //初始化棋局
+            for(i=0;i<9;++i)
+                for(j=0;j<9;++j)
+                    Board[i][j]=EMPTY;
+            //...
+            
+            start=1;
+            
+            if(computerSide==BLACK)
+            {
+                //生成第一手着法，并保存在step结构中
+                //...
+                
+                //处理己方行棋
+                Board[step.point.x][step.point.y]=computerSide;
+                //...
+                
+                //输出着法
+                printf("move %c%c\n",step.point.x+'A',step.point.y+'A');
+            }
+		}
+        else if (strcmp(message, "error") == 0)//着法错误
+        {
+            fflush(stdin);
+            
+            //...
+        }
+		else if (strcmp(message, "name?") == 0)//询问引擎名
+		{
+            fflush(stdin);
+            
+            //输出引擎名
+			printf("name xxxx\n");
+		}
+		else if (strcmp(message, "end") == 0)//对局结束
+		{
+            fflush(stdin);
+            
+			start = 0;
+            //...
+		}
+		else if (strcmp(message, "quit") == 0)//退出引擎
+		{
+            fflush(stdin);
+            
+            //...
+			printf("Quit!\n");
+			break;
+		}
+	}
+	return 0;
+}
+
+
+
+四、通信及棋种规则实现详细说明
+
+    在SAU Game Platform的体系架构中，平台与引擎之间的通信由博弈引擎控制模块直接完成，但对通信协议的实现则是由对弈逻辑控制模块和棋种支持模块协同完成的。在该体系架构中，平台与引擎之间的通信按对弈阶段被划分为两部分，即对弈准备通信和对弈过程通信。其中对弈准备通信由对弈逻辑控制模块实现，对弈过程通信通过对弈逻辑控制模块交付给棋种支持模块实现。
+
+    对弈准备通信包括引擎状态确认和对弈角色分配两部分。当引擎加载后，引擎状态首先被置为“未就绪”，平台向引擎发送“name?”命令询问引擎状态。此时引擎在准备就绪后，向平台发送“name”命令，声明自己准备就绪，可以开始对弈。当所有已加载引擎都被置为“就绪”后，平台可以接受用户的开始对弈命令。当用户发布开始对弈命令后，平台将向引擎发送“new”命令，分配引擎在对弈活动中的角色，并声明对弈开始。
+
+    对弈过程通信是在平台与引擎间交换改变棋局状态的信息，在平台的调度下完成正常有序的博弈活动。当引擎接收到“new”命令时，若side参数的值为black，则引擎为先手，应向平台发送“move”命令声明自己的着法决策。若side参数的值为white，则引擎为后手，应等待平台发送的下一个“move”命令后行棋。当引擎收到“move”命令时，应用该命令所携带的着法更新自己维护的棋局状态，并向平台发送“move”命令声明自己的着法决策。当引擎收到“error”命令时，表示引擎发送的上一个着法为错误着法，引擎应重新产生着法。
+
+    对于亚马逊棋（Amazon），使用10×10的棋盘，一步着法包括棋子起点、棋子落点和障碍位置3个坐标，所以“move”命令采用“move+' '+X1Y1+X2Y2+X3Y3+'\n'”格式，其中(X1,Y1)表示棋子起点坐标；(X2,Y2)表示棋子落点坐标；(X3,Y3)表示障碍坐标。
+
+    对于六子棋（Connect6），使用19×19的棋盘，一步着法包含两枚棋子位置2个坐标，所以“move”命令采用“move+' '+X1Y1+X2Y2+'\n'”格式，其中(X1,Y1)表示第一枚棋子坐标；(X2,Y2)表示第二枚棋子坐标。对于第一手着法，因为只落一子，所以X2Y2为@@，表示(-1,-1)。
+
+    对于不围棋（NoGo），使用9×9的棋盘，一步着法包含一枚棋子位置1个坐标，所以“move”命令采用“move+' '+XY+'\n'”格式，其中(X,Y)表示棋子坐标。
+
+    对于点格棋（DotsAndBoxes），使用6×6的点阵为棋盘，一步着法包含若干连线坐标。对于连线坐标，为了压缩命令串的长度，采用2×6×5的三维坐标，而不采用连线两个端点的坐标表示。三维坐标的第一维度表示连线的横纵，0表示横线，1表示竖线；第二维度表示线的标号，横线以行标识，竖线以列标识；第三维度表示段的标号，横线以列标识，竖线以行标识。所以“move”命令采用“move+' '+num+' '+KIJ+[+kij+...]+'\n'”格式，其中num表示连线数目，以数字进行标识；(K,I,J)表示连线坐标。对于因捕获格子而具有多个连线的着法，按着法数量填充着法列表。
+
+    对于幻影围棋（PhantomCO），使用9×9的棋盘，一步着法包含一枚棋子位置1个坐标，且允许Pass。“move”命令有三种格式，分别为：“move+' '+XY+'\n'”、“move+' '+pass+'\n'”和“move+' '+go+'\n'”。XY参数“move”命令用于引擎向平台发送着法，(X,Y)表示棋子坐标；pass参数“move”命令用于引擎向平台发送棋子，同时平台将向另一方发送“move+' '+pass+'\n'”命令；go参数“move”命令用于平台通知引擎行棋。当引擎收到go参数“move”命令时，应向平台返回XY参数“move”命令。当平台收到XY参数“move”命令时，若该着法合法，则平台向引擎发送“accept+'\n'”命令表示接受；反之，平台向引擎发送“refuse+'\n'”命令表示不接受。
+    因为幻影围棋为不完备信息博弈，且具有提子操作，所以平台将向引擎发送“take+' '+num+' '+position list+'\n'”命令或“taked+' '+num+' '+position list+'\n'”命令来描述提子信息。其中“take”命令表示提对方棋子，“taked”命令表示提己方棋子。num表示提子数目，以数字进行标识.
+    需要说明的是：“taked”命令后紧跟着一条go参数“move”命令，为“taked+' '+num+position list+'\n'+move+' '+go+'\n'”格式；“take”命令前有一条“access”命令，为“access+'\n'+take+' '+num+position list+'\n'”格式。
+
+    对于苏拉卡尔塔棋（Surakarta)，使用6×6的棋盘，一步着法为一个走子操作，且允许吃子，所以“move”命令采用“move+' '+X1Y1+X2Y2+'\n'”格式，其中(X1,Y1)表示棋子起点坐标；(X2,Y2)表示棋子落点坐标。
+
+
+五、联系方式
+
+    SAU Game Platform 由沈阳航空航天大学计算机博弈协会构建，并持续对软件进行支持，在使用过程中如发现错误或反馈意见，请与相关负责人联系。
+
+    尹伟和：
+        Email：ywhjames@hotmail.com
+        QQ：616205539
+
+
+
+

@@ -1,0 +1,298 @@
+{
+	"inputs" : 
+	[
+		{
+			"path" : "CMakeLists.txt"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "cmake-build-debug-mingw/CMakeFiles/3.25.2/CMakeSystem.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "cmake-build-debug-mingw/CMakeFiles/3.25.2/CMakeCCompiler.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "cmake-build-debug-mingw/CMakeFiles/3.25.2/CMakeCXXCompiler.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/WindowsPaths.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-C.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "cmake-build-debug-mingw/CMakeFiles/3.25.2/CMakeRCCompiler.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeRCInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-windres.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-C-ABI.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-CXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-CXX-ABI.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5/Qt5ConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5/Qt5Config.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5/Qt5ModuleLocation.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Core/Qt5CoreConfig.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Core/Qt5CoreMacros.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeParseArguments.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QICNSPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QTgaPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QTiffPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QVirtualKeyboardPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QWbmpPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QWebGLIntegrationPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QWebpPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QWindowsDirect2DIntegrationPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QWindowsIntegrationPlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5Gui_QXdgDesktopPortalThemePlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Widgets/Qt5Widgets_QWindowsVistaStylePlugin.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/Qt/5.12.12/mingw73_64/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "E:/Program Files/Code Editor/JETBRAINS/CLion/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeParseArguments.cmake"
+		}
+	],
+	"kind" : "cmakeFiles",
+	"paths" : 
+	{
+		"build" : "E:/Project/Qt_OS_course/cmake-build-debug-mingw",
+		"source" : "E:/Project/Qt_OS_course"
+	},
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}

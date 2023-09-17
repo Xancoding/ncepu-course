@@ -1,0 +1,23 @@
+; 编写汇编程序：向内存0:200-0:23F或指定的数据段依次传送数据0-63(3FH)
+
+ASSUME CS:CODE
+
+CODE SEGMENT
+
+START:
+    MOV AX, 0020H
+    MOV DS, AX
+    MOV BX, 0000H
+
+    MOV CX, 64
+
+S:  MOV [BX], BX
+    INC BX 
+    LOOP S
+
+    MOV AX, 4C00H
+    INT 21H
+
+CODE ENDS
+
+END START

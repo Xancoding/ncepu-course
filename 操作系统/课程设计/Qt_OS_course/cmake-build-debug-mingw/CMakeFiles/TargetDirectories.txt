@@ -1,0 +1,4 @@
+E:/Project/Qt_OS_course/cmake-build-debug-mingw/CMakeFiles/Qt_OS_course.dir
+E:/Project/Qt_OS_course/cmake-build-debug-mingw/CMakeFiles/edit_cache.dir
+E:/Project/Qt_OS_course/cmake-build-debug-mingw/CMakeFiles/rebuild_cache.dir
+E:/Project/Qt_OS_course/cmake-build-debug-mingw/CMakeFiles/Qt_OS_course_autogen.dir

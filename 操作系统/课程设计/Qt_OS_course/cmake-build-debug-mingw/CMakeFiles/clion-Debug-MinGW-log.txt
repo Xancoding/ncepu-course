@@ -1,0 +1,10 @@
+"E:\Program Files\Code Editor\JETBRAINS\CLion\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=E:/Program Files/Code Editor/JETBRAINS/CLion/bin/ninja/win/x64/ninja.exe" -DCMAKE_PREFIX_PATH=D:\Qt\5.12.12\mingw73_64 -G Ninja -S E:\Project\Qt_OS_course -B E:\Project\Qt_OS_course\cmake-build-debug-mingw
+-- Configuring done
+CMake Error at CMakeLists.txt:17 (add_executable):
+  Cannot find source file:
+
+    process.h
+
+
+-- Generating done
+CMake Generate step failed.  Build files cannot be regenerated correctly.
