@@ -1,0 +1,37 @@
+<html>
+<head>
+	<script src="/Public/Common/js/lib/jquery/jquery.1.9.1.min.js"></script>
+	<script src="/Public/Home/js/resourcerecord.js"></script>
+	<script type="text/javascript">
+		var moocid = getQuery("moocid");
+		var lessonid = getQuery("lessonid");
+		var playerLogTimer = null;
+		if(moocid != "" && lessonid !=""){
+			MoocLessonLearnApi_getLearnStatus(moocid,lessonid,function(tData){
+				MoocLessonLearnApi_startLearnStatus(moocid,lessonid);
+			});
+			//每隔10s进行报告
+			clearInterval(playerLogTimer);
+			playerLogTimer = setInterval(function(){
+				MoocLessonLearnApi_learnTimeLog(moocid,lessonid);
+			},10000);
+		}
+		var courseid = getQuery("courseid");
+		var coursewareid = getQuery("coursewareid");
+		if(courseid != "" && coursewareid != ""){
+			CoursewareLearnApi_getLearnStatus(courseid,coursewareid,function(tData){
+				CoursewareLearnApi_startLearnStatus(courseid,coursewareid);
+			});
+			//每隔10s进行报告
+			clearInterval(playerLogTimer);
+			playerLogTimer = setInterval(function(){
+				CoursewareLearnApi_learnTimeLog(courseid,coursewareid);
+			},10000);
+		}
+	</script>
+</head>
+<frameset rows="100%,*">
+	<frame src="https://document.ketangpai.com/?n=1&furl=http://ketangpai-test.oss-cn-hangzhou-internal.aliyuncs.com/ketangpai.aliapp.com/1/webroot/Uploads/Download/2023-03-22/641ac21991516.pdf?OSSAccessKeyId=LTAItfPkNIKJFibY&Expires=4847326722&Signature=O6uoNnAsIMQLzdW1IFj7fDpy7EM%3D" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></frame>
+	<noframes>很抱歉，你的浏览器，暂时无法在线预览附件的功能</noframes>
+</frameset>
+</html>
