@@ -334,3 +334,18 @@ https://www.bilibili.com/video/BV1WP4y187Tu
     演示地址：https://github.com/poloclub/cnn-explainer
     论文地址：https://arxiv.org/abs/2004.15004
 
+# 第十次练习
+
+## Google中国系列课程：
+  《Made with TensorFlow.js 中文系列（全 21 讲）
+   地址：https://www.bilibili.com/video/BV1D54y1p7PQ/
+
+## 课堂内容：
+
+1. Tensorflow.js官方简介：基于TensorFlow.js 的下一代Web应用
+   在线视频：https://www.bilibili.com/video/BV1Kq4y1k7dw/
+2. 基于Tensorflow.js的机器学习实践
+   2.1 Tensorflow.js机器学习教程12
+   2.2 参考书：Manning.Deep.Learning.with.JavaScript.2020.1.pdf
+   2.3 泰坦尼克号乘客生存预测
+       地址：https://danfo.jsdata.org/examples/titanic-survival-prediction-using-danfo.js-and-tensorflow.js
