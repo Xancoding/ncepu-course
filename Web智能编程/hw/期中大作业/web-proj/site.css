@@ -1,0 +1,49 @@
+/* CSS for the header and footer */
+.header, .footer {
+  background-color: #f2f2f2;
+  padding: 20px;
+  text-align: center;
+}
+.header h1, .footer h2 {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+/* CSS for the navigation */
+.header ul {
+  list-style-type: none;
+  padding: 0;
+}
+.header ul li {
+  display: inline;
+  margin-right: 15px;
+}
+.header ul li a {
+  text-decoration: none;
+  color: #555;
+  font-weight: bold;
+}
+.header ul li a:hover {
+  color: #000;
+}
+/* CSS for the footer content */
+.footer p {
+  color: #777;
+  font-size: 14px;
+}
+
+#musicControl {
+  padding: 10px 20px; /* 内边距 */
+  text-decoration: none; /* 去除下划线 */
+  display: inline-block;
+  font-size: 16px; /* 字体大小 */
+  margin: 0 10px; /* 外边距 */
+  cursor: pointer; /* 设置鼠标样式为手型 */
+  color: #333; /* 文字颜色 */
+}
+
+#musicControl:hover {
+  color: #007bff; /* 悬停时的文字颜色 */
+}
+
+    
