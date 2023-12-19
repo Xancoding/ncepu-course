@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "c9e25338-dd55-49d7-9098-d932af6b8fc1",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28503702",
+		"_collection_link": "https://www.postman.com/winter-comet-430308/workspace/web-proj/collection/28503702-c9e25338-dd55-49d7-9098-d932af6b8fc1?action=share&source=collection_link&creator=28503702"
+	},
+	"item": [
+		{
+			"name": "getInfo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/students/getInfo?studentId=&username=&major=&email&phoneNumber&gender&gpa=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"students",
+						"getInfo"
+					],
+					"query": [
+						{
+							"key": "studentId",
+							"value": ""
+						},
+						{
+							"key": "username",
+							"value": ""
+						},
+						{
+							"key": "major",
+							"value": ""
+						},
+						{
+							"key": "email",
+							"value": null
+						},
+						{
+							"key": "phoneNumber",
+							"value": null
+						},
+						{
+							"key": "gender",
+							"value": null
+						},
+						{
+							"key": "gpa",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "insertInfo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/students/insertInfo?username=李白&major=&email&phoneNumber&gender&gpa=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"students",
+						"insertInfo"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "李白"
+						},
+						{
+							"key": "major",
+							"value": ""
+						},
+						{
+							"key": "email",
+							"value": null
+						},
+						{
+							"key": "phoneNumber",
+							"value": null
+						},
+						{
+							"key": "gender",
+							"value": null
+						},
+						{
+							"key": "gpa",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteInfo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/students/deleteInfo?studentId=&username=&major=&email&phoneNumber&gender&gpa=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"students",
+						"deleteInfo"
+					],
+					"query": [
+						{
+							"key": "studentId",
+							"value": ""
+						},
+						{
+							"key": "username",
+							"value": ""
+						},
+						{
+							"key": "major",
+							"value": ""
+						},
+						{
+							"key": "email",
+							"value": null
+						},
+						{
+							"key": "phoneNumber",
+							"value": null
+						},
+						{
+							"key": "gender",
+							"value": null
+						},
+						{
+							"key": "gpa",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateInfo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/students/updateInfo?studentId=2&username=&major=电子信息&email&phoneNumber&gender&gpa=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"students",
+						"updateInfo"
+					],
+					"query": [
+						{
+							"key": "studentId",
+							"value": "2"
+						},
+						{
+							"key": "username",
+							"value": ""
+						},
+						{
+							"key": "major",
+							"value": "电子信息"
+						},
+						{
+							"key": "email",
+							"value": null
+						},
+						{
+							"key": "phoneNumber",
+							"value": null
+						},
+						{
+							"key": "gender",
+							"value": null
+						},
+						{
+							"key": "gpa",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
