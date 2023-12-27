@@ -21,7 +21,7 @@ https://www.loom.com/share/c4ee68aa1a4a437ca48744d1d5752ee9
 <center>
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08); width: 50%;" 
-    src="C:\Users\24398\Desktop\lab\img\img1.png">
+    src="img/img1.png">
     <br>
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
@@ -32,7 +32,7 @@ https://www.loom.com/share/c4ee68aa1a4a437ca48744d1d5752ee9
 <center>
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08); width: 50%;" 
-    src="C:\Users\24398\Desktop\lab\img\img2.png">
+    src="img/img2.png">
     <br>
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
@@ -45,7 +45,7 @@ https://www.loom.com/share/c4ee68aa1a4a437ca48744d1d5752ee9
 <center>
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08); width: 50%;" 
-    src="C:\Users\24398\Desktop\lab\img\img3.png">
+    src="img/img3.png">
     <br>
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
@@ -58,7 +58,7 @@ https://www.loom.com/share/c4ee68aa1a4a437ca48744d1d5752ee9
 <center>
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08); width: 50%;" 
-    src="C:\Users\24398\Desktop\lab\img\img4.png">
+    src="img/img4.png">
     <br>
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
@@ -71,13 +71,14 @@ https://www.loom.com/share/c4ee68aa1a4a437ca48744d1d5752ee9
 <center>
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08); width: 50%;" 
-    src="C:\Users\24398\Desktop\lab\img\img5.png">
+    src="img/img5.png">
     <br>
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
     color: #999;
     padding: 2px;">点击左下角的按钮，开始执行</div>
 </center>
+
 
 
 
