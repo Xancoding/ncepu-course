@@ -1,8 +1,9 @@
 spring:
+  # 填写下面的信息
   datasource:
-    url: jdbc:mysql://localhost:3306/web-proj
-    username: root
-    password: ZXY20030205
+    url: jdbc:mysql://localhost:3306/web-proj # 你的数据库名
+    username: root                            # 你的数据库用户名
+    password: ZXY20030205                     # 你的数据库密码
     driver-class-name: com.mysql.cj.jdbc.Driver
 server:
   port: 8888
